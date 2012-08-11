@@ -1,0 +1,66 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#add").click(function(){
+		n=0;
+		mimg="http://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Olympic_Stadium_(London),_16_April_2012.jpg/300px-Olympic_Stadium_(London),_16_April_2012.jpg";
+		str="<div id='piece"+n+"' style='background: url(\""+mimg+"\") no-repeat scroll 0px 0px transparent;width:100;height:100;'></div>";
+		$("#set").append($(str));
+		//alert('s');
+		initDrag();
+	});	
+});
+$(document).ready(function(){
+
+
+	var myWidth = 0, myHeight = 0;
+	if( typeof( window.innerWidth ) == 'number' ) {
+	//Non-IE
+	myWidth = window.innerWidth;
+	myHeight = window.innerHeight;
+	} else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+	//IE 6+ in 'standards compliant mode'
+	myWidth = document.documentElement.clientWidth;
+	myHeight = document.documentElement.clientHeight;
+	} else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+	//IE 4 compatible
+	myWidth = document.body.clientWidth;
+	myHeight = document.body.clientHeight;
+	}
+	//myHeight-=50;
+
+	initDrag();
+});
+
+	initDrag=function(){
+
+		$(function() {
+			$( "#set div" ).draggable({
+				stack:"#set div",
+				handle:$(this).find(".titleInside"),
+				drag: function(event,ui){/*
+					if(parseInt($(this).css('top'))<0){
+						$(this).css('top','0px');
+						return false;
+					}
+					if((myHeight - parseInt($(this).css('top')))<150){
+						$(this).css('top',(myHeight-150)+"px");
+						return false;
+					}*/
+				},
+				stop: function(event,ui){
+				}
+			});
+		});
+	}
+
+</script>
+<style>
+</style>
+</head>
+<button id="add">Add</button>
+<div id="set"></div>
+</html>
