@@ -10,42 +10,7 @@ n=5;
 
 $(document).ready(function(){
 
-	//$("#add").click(function(){
-
-		var img = new Image();
-		img.onload = function() {
-			imgh=this.height;
-			imgw=this.width;
-		  //alert(this.width + 'x' + this.height);
-			piecew=imgw/n;
-			pieceh=imgh/n;
-			str="<div id='grd' style='height:"+(imgh+n*5)+";width:"+(imgw+n*5)+";opacity:0.2;background: url(\""+mimg+"\") no-repeat scroll transparent;//border:1px solid black'>";
-			for(i=0;i<n;i++){
-				for(j=0;j<n;j++){
-					str+="<div class='cont' id='grid"+((n*i)+j)+"' style='height:"+pieceh+";width:"+piecew+";float:left;border:2px dashed black'></div>";
-					//$("#mid").append($(str));
-				}
-				str+="<div style='height:"+pieceh+";width:"+piecew+";//border:8px solid red'></div>";
-			}
-			str+="</div><br/><br/><br/><br/>";
-			$("#mid").append($(str));
-			
-			for(i=0;i<n;i++){
-				for(j=0;j<n;j++){
-					str="<div id='piece"+((n*i)+j)+"' class='piece' style='position:absolute;background: url(\""+mimg+"\") no-repeat scroll -"+(j*piecew)+"px -"+(i*pieceh)+"px transparent;width:"+piecew+"px;height:"+pieceh+"px;border:1px solid red;border-radius:5px;'><div style='background: url(\""+mimg+"\") no-repeat scroll -"+(j*piecew + 0.9*piecew)+"px -"+(i*pieceh + 0.25*pieceh)+"px transparent;width:"+(piecew/2)+"px;height:"+(pieceh/2)+"px;position:absolute;left:"+(0.9*piecew)+"px;top:"+(0.25*piecew)+"px;border;border-radius:50%'></div><div style='background: url(\""+mimg+"\") no-repeat scroll -"+(j*piecew + 0.25*piecew)+"px -"+(i*pieceh + 0.9*pieceh)+"px transparent;width:"+(piecew/2)+"px;height:"+(pieceh/2)+"px;position:absolute;left:"+(0.25*piecew)+"px;top:"+(0.9*piecew)+"px;border;border-radius:50%'></div></div>";
-					$("body").append($(str));
-				}
-			}
-		initDrag();
-		}
-		img.src = mimg;
-
-		
-		//alert('s');
-	//});	
-
-
-	var myWidth = 0, myHeight = 0;
+		var myWidth = 0, myHeight = 0;
 	if( typeof( window.innerWidth ) == 'number' ) {
 	//Non-IE
 	myWidth = window.innerWidth;
@@ -61,13 +26,54 @@ $(document).ready(function(){
 	}
 	//myHeight-=50;
 
+	//$("#add").click(function(){
+
+		var img = new Image();
+		img.onload = function() {
+			imgh=this.height;
+			imgw=this.width;
+//			alert(parseInt((myWidth-imgw)/2));
+			str="<div id='mid' style='position:absolute;left:"+parseInt((myWidth-imgw)/2)+"px;'>";
+			$("body").append($(str));
+		  //alert(this.width + 'x' + this.height);
+			piecew=imgw/n;
+			pieceh=imgh/n;
+			str="<div id='grd' style='height:"+(imgh+n*5)+";width:"+(imgw+n*5)+";opacity:0.2;background: url(\""+mimg+"\") no-repeat scroll transparent;//border:1px solid black'>";
+			for(i=0;i<n;i++){
+				for(j=0;j<n;j++){
+					str+="<div class='cont' id='grid"+((n*i)+j)+"' style='height:"+pieceh+";width:"+piecew+";float:left;border:2px dashed black'></div>";
+					//$("#mid").append($(str));
+				}
+				str+="<div style='height:"+pieceh+";width:"+piecew+";//border:8px solid red'></div>";
+			}
+			str+="</div> <br/><br/><br/><br/><div>";
+			$("#mid").append($(str));
+			
+			for(i=0;i<n;i++){
+				for(j=0;j<n;j++){
+					r=Math.random()*10000;
+					randleft=(r%myWidth+piecew >= myWidth)?parseInt(r%myWidth-piecew):parseInt(r%myWidth);
+					r=Math.random()*10000;
+					//alert((r%myHeight-imgh)+"--"+myHeight);
+					randtop=(r%myHeight+pieceh >= myHeight)?parseInt(r%myHeight-pieceh):parseInt(r%myHeight);
+					//alert(randtop+" - "+randleft);
+					str="<div id='piece"+((n*i)+j)+"' class='piece' style='position:absolute;left:"+randleft+"px;top:"+randtop+"px;background: url(\""+mimg+"\") no-repeat scroll -"+(j*piecew)+"px -"+(i*pieceh)+"px transparent;width:"+piecew+"px;height:"+pieceh+"px;border:1px solid red;border-radius:5px;'><div style='background: url(\""+mimg+"\") no-repeat scroll -"+(j*piecew + 0.9*piecew)+"px -"+(i*pieceh + 0.25*pieceh)+"px transparent;width:"+(piecew/2)+"px;height:"+(pieceh/2)+"px;position:absolute;left:"+(0.9*piecew)+"px;top:"+(0.25*piecew)+"px;border;border-radius:50%'></div><div style='background: url(\""+mimg+"\") no-repeat scroll -"+(j*piecew + 0.25*piecew)+"px -"+(i*pieceh + 0.9*pieceh)+"px transparent;width:"+(piecew/2)+"px;height:"+(pieceh/2)+"px;position:absolute;left:"+(0.25*piecew)+"px;top:"+(0.9*piecew)+"px;border;border-radius:50%'></div></div>";
+					$("body").append($(str));
+				}
+			}
+		initDrag();
+		}
+		img.src = mimg;
+
+		
+		//alert('s');
+	//});	
+
+
+
+
 	initDrag();
 
-	var img = new Image();
-	img.onload = function() {
-	  //alert(this.width + 'x' + this.height);
-	}
-	img.src = mimg;
 
 });
 
@@ -104,7 +110,5 @@ $(document).ready(function(){
 </head>
 <body style="//overflow:hidden;">
 <div id="set"></div>
-<div style='position:absolute;left:30%' id="mid">
-</div>
 </body>
 </html>
